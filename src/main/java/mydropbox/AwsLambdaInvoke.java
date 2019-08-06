@@ -21,7 +21,7 @@ public class AwsLambdaInvoke {
         InvokeRequest invokeRequest = new InvokeRequest()
                 .withFunctionName("dropboxlambda")
                 .withPayload("{\n" +
-                                     " \"name\": \"" + email + "\"\n" +
+                                     " \"email\": \"" + email + "\"\n" +
                                      "}");
 
         InvokeResult invokeResult = null;
