@@ -1,0 +1,44 @@
+<html xmlns:th="https://www.thymeleaf.org">
+<body>
+
+<div th:if="${message}">
+    <h2 th:text="${message}"/>
+</div>
+
+<div>
+    <form method="POST" enctype="multipart/form-data" action="/">
+        <table>
+            <tr>
+                <td>File to upload:</td>
+                <td><input type="file" name="file"/></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td><input type="submit" value="Upload"/></td>
+            </tr>
+        </table>
+    </form>
+</div>
+
+<div>
+    <p>Files in S3</p>
+    <table th:each="file : ${files}">
+        <tr><a th:href="${file}" th:text="${file}"/></tr>
+        <tr> ___</tr>
+        <tr>
+            <form th:action="@{/remove}" th:method="delete">
+                <button type="submit" th:name="file_name" th:value="${file}">Delete</button>
+            </form>
+        </tr>
+    </table>
+</div>
+
+<div>
+    <p>Send random file to your email:</p>
+    <form action="#" th:action="@{/lambda}" th:object="${userInfo}" method="post">
+        <p>Your email: <input type="text" th:field="*{email}" /></p>
+        <p><input type="submit" value="Submit" /> </p>
+    </form>
+</div>
+</body>
+</html>
