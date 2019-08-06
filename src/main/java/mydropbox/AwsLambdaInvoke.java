@@ -1,9 +1,6 @@
 package mydropbox;
 
-import com.amazonaws.auth.AWSStaticCredentialsProvider;
-import com.amazonaws.auth.BasicAWSCredentials;
 import com.amazonaws.auth.InstanceProfileCredentialsProvider;
-import com.amazonaws.regions.Regions;
 import com.amazonaws.services.lambda.AWSLambda;
 import com.amazonaws.services.lambda.AWSLambdaClientBuilder;
 import com.amazonaws.services.lambda.model.InvokeRequest;
@@ -15,13 +12,9 @@ import org.springframework.stereotype.Component;
 public class AwsLambdaInvoke {
 
     public String invokeLambda(String email) {
-//        BasicAWSCredentials credentials = new BasicAWSCredentials("AKIAI33A2ZRM4GH5OP2A",
-//                                                                  "PZKqlK37qO5Wvh1edcWDSImpDjNXdB90Qt9aNoru");
-
         AWSLambdaClientBuilder builder = AWSLambdaClientBuilder.standard()
                                                                .withCredentials(
                                                                        new InstanceProfileCredentialsProvider(false));
-//                                                               .withRegion(Regions.US_EAST_2);
 
         AWSLambda awsLambda = builder.build();
 
