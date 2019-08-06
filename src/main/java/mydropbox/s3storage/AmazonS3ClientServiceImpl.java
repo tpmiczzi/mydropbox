@@ -1,5 +1,6 @@
 package mydropbox.s3storage;
 
+import com.amazonaws.auth.InstanceProfileCredentialsProvider;
 import com.amazonaws.services.s3.model.CannedAccessControlList;
 import com.amazonaws.services.s3.model.DeleteObjectRequest;
 import com.amazonaws.services.s3.model.GetObjectRequest;
@@ -32,10 +33,10 @@ public class AmazonS3ClientServiceImpl implements AmazonS3ClientService {
     private static final Logger logger = LoggerFactory.getLogger(AmazonS3ClientServiceImpl.class);
 
     @Autowired
-    public AmazonS3ClientServiceImpl(Region awsRegion, AWSCredentialsProvider awsCredentialsProvider,
+    public AmazonS3ClientServiceImpl(Region awsRegion,
                                      String awsS3Bucket) {
         this.amazonS3 = AmazonS3ClientBuilder.standard()
-                                             .withCredentials(awsCredentialsProvider)
+                                             .withCredentials(new InstanceProfileCredentialsProvider(false))
                                              .withRegion(awsRegion.getName()).build();
         this.awsS3Bucket = awsS3Bucket;
     }
