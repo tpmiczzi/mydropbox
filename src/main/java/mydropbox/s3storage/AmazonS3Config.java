@@ -17,9 +17,9 @@ public class AmazonS3Config {
 //
 //    @Value("${aws.access.key.secret}")
 //    private String awsKeySecret;
-
-    @Value("${aws.region}")
-    private String awsRegion;
+//
+//    @Value("${aws.region}")
+//    private String awsRegion;
 
     @Value("${aws.s3.bucket}")
     private String awsS3Bucket;
@@ -34,10 +34,10 @@ public class AmazonS3Config {
 //        return awsKeySecret;
 //    }
 
-    @Bean(name = "awsRegion")
-    public Region getAWSPollyRegion() {
-        return Region.getRegion(Regions.fromName(awsRegion));
-    }
+//    @Bean(name = "awsRegion")
+//    public Region getAWSPollyRegion() {
+//        return Region.getRegion(Regions.fromName(awsRegion));
+//    }
 
 //    @Bean(name = "awsCredentialsProvider")
 //    public AWSCredentialsProvider getAWSCredentials() {
