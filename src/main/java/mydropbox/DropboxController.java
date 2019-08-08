@@ -99,7 +99,7 @@ public class DropboxController {
         String keyToFile = s3ObjectSummary.getKey();
 //        String bucketName = s3ObjectSummary.getBucketName();
 
-        String message = awsLambdaInvoke.invokeLambda(userInfo.getEmail(), "https://mydropbox-s3.s3.amazonaws.com//" + keyToFile);
+        String message = awsLambdaInvoke.invokeLambda(userInfo.getEmail(), "https://mydropbox-s3.s3.amazonaws.com/" + keyToFile);
         redirectAttributes.addFlashAttribute("message", message);
 
         return "redirect:/";
