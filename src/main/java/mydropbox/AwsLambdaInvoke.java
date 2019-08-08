@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class AwsLambdaInvoke {
 
-    public String invokeLambda(String email) {
+    public String invokeLambda(String email, String url) {
         AWSLambdaClientBuilder builder = AWSLambdaClientBuilder.standard()
                                                                .withCredentials(
                                                                        new InstanceProfileCredentialsProvider(false));
@@ -21,7 +21,8 @@ public class AwsLambdaInvoke {
         InvokeRequest invokeRequest = new InvokeRequest()
                 .withFunctionName("dropboxlambda")
                 .withPayload("{\n" +
-                                     " \"email\": \"" + email + "\"\n" +
+                                     " \"email\": \"" + email + ",\"\n" +
+                                     " \"url\": \"" + url + "\"\n" +
                                      "}");
 
         InvokeResult invokeResult = null;

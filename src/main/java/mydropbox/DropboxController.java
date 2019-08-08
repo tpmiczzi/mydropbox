@@ -6,6 +6,8 @@ import com.amazonaws.services.s3.model.S3ObjectSummary;
 import com.amazonaws.util.IOUtils;
 import java.io.IOException;
 import java.net.URLEncoder;
+import java.util.List;
+import java.util.Random;
 import java.util.stream.Collectors;
 import mydropbox.dto.UserInfo;
 import mydropbox.s3storage.AmazonS3ClientService;
@@ -91,7 +93,13 @@ public class DropboxController {
     @PostMapping("/lambda")
     public String sendRandomFileToEmail(@ModelAttribute UserInfo userInfo,
                                         RedirectAttributes redirectAttributes) {
-        String message = awsLambdaInvoke.invokeLambda(userInfo.getEmail());
+
+        List<S3ObjectSummary> s3ObjectSummaryList = amazonS3ClientService.getListFiles();
+        S3ObjectSummary s3ObjectSummary = s3ObjectSummaryList.get(new Random().nextInt(s3ObjectSummaryList.size()));
+        String keyToFile = s3ObjectSummary.getKey();
+        String bucketName = s3ObjectSummary.getBucketName();
+
+        String message = awsLambdaInvoke.invokeLambda(userInfo.getEmail(), "https://" + bucketName + "/" + keyToFile);
         redirectAttributes.addFlashAttribute("message", message);
 
         return "redirect:/";
