@@ -2,7 +2,6 @@ package mydropbox.lambda;
 
 public class MyLambdaResponse {
     String responseMessage;
-    String transactionID;
 
     public String getResponseMessage() {
         return responseMessage;
@@ -12,16 +11,10 @@ public class MyLambdaResponse {
         this.responseMessage = responseMessage;
     }
 
-    public String getTransactionID() {
-        return transactionID;
-    }
-
-    public void setTransactionID(String transactionID) {
-        this.transactionID = transactionID;
-    }
-
     @Override
     public String toString() {
-        return "MyLambdaResponse [responseMessage=" + responseMessage + ",transactionID = " + transactionID + "]";
+        return "MyLambdaResponse{" +
+                "responseMessage='" + responseMessage + '\'' +
+                '}';
     }
 }

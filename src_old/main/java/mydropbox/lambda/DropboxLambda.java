@@ -1,20 +1,21 @@
 package mydropbox.lambda;
 
-
 import com.amazonaws.services.lambda.runtime.Context;
 import com.amazonaws.services.lambda.runtime.RequestHandler;
 import java.util.Date;
-import java.util.UUID;
 
 public class DropboxLambda implements RequestHandler<MyLambdaRequest, MyLambdaResponse> {
 
     @Override
-    public MyLambdaResponse handleRequest(MyLambdaRequest input, Context context) {
-        context.getLogger().log("Input: " + input);
+    public MyLambdaResponse handleRequest(MyLambdaRequest myLambdaRequest, Context context) {
+        context.getLogger().log("Input: " + myLambdaRequest);
         MyLambdaResponse lambdaResponse = new MyLambdaResponse();
         try {
-            lambdaResponse.setResponseMessage("Hello " + input.getName() + " Response Time : " + new Date());
-            lambdaResponse.setTransactionID(UUID.randomUUID().toString());
+
+            MyAmazonSES myAmazonSES = new MyAmazonSES();
+            String rez = myAmazonSES.sendEmail(myLambdaRequest.getEmail(), myLambdaRequest.getUrl());
+
+            lambdaResponse.setResponseMessage("Status - " + rez + " Response Time : " + new Date());
         } catch (Exception e) {
             e.printStackTrace();
             lambdaResponse.setResponseMessage(e.getMessage());
